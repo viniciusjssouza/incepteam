@@ -12,5 +12,5 @@ class Allocations:
         return self._cost or self.calculate_cost()
 
     def calculate_cost(self):
-        self._cost = AllocationCost(self.problem_input, self.team_allocations)
+        self._cost = AllocationCost(self.problem_input, self.team_allocations).value
         return self._cost

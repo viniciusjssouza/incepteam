@@ -9,7 +9,9 @@ class AllocationCost:
         self.value = self.calculate()
 
     def calculate(self):
-        return self.preferences_cost() + self.roles_cost() + self.strength_cost()
+        costs = {'preference': self.preferences_cost(), 'roles': self.roles_cost(), 'strength': self.strength_cost()}
+        print(costs)
+        return sum(costs.values())
 
     def preferences_cost(self):
         total = 0
@@ -27,7 +29,7 @@ class AllocationCost:
 
             current_team = self.input.teams_by_name[alloc.team_name]
             for role, expected in current_team.roles.items():
-                if roles_count[role] < expected:
+                if roles_count.get(role, 0) < expected:
                     total += pow(len(self.input.teams), 2)
         return total
 

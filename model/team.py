@@ -1,10 +1,10 @@
 
 class Team:
 
-    def __init__(self, name, size, **roles):
+    def __init__(self, name, size, roles):
         self.name = name
         self.size = size
-        self.roles = roles
+        self.roles = roles or {}
 
     @staticmethod
     def build_team(**data):
@@ -12,7 +12,7 @@ class Team:
         size = data['size']
         roles = Team.build_roles(data)
 
-        return Team(name, size, **roles)
+        return Team(name, size, roles)
 
     @staticmethod
     def build_roles(data):

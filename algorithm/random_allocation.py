@@ -9,8 +9,8 @@ class RandomAllocation:
         self.teams = teams
 
     def generate(self):
-        indexes = range(0, len(self.people))
-        random.shuffle(list(indexes))
+        indexes = list(range(0, len(self.people)))
+        random.shuffle(indexes)
 
         allocations = self.create_empty_allocations()
 

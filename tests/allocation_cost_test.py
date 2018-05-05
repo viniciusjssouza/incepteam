@@ -10,6 +10,7 @@ class TestAllocationCost(unittest.TestCase):
         input = tests.avengers()
         team_allocations = RandomAllocation(input.people, input.teams).generate()
         allocations = Allocations(input, team_allocations)
+        print(team_allocations)
         print(allocations.cost())
 
     def test_generate_random_allocation_two_teams(self):
@@ -17,6 +18,7 @@ class TestAllocationCost(unittest.TestCase):
         random_allocation = RandomAllocation(input.people, input.teams)
         team_allocations = random_allocation.generate()
         allocations = Allocations(input, team_allocations)
+        print(team_allocations)
         print(allocations.cost())
 
 if __name__ == '__main__':
