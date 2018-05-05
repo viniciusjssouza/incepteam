@@ -38,54 +38,64 @@ def four_people_two_teams():
 def avengers():
     persons = [
         Person(name="Hulk", role="heavy", strength=3, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 2,
+            "battlefield": 1,
+            "stark": 3
+        }),
 
         Person(name="America", role="fast", strength=1, preferences={
-            "estoque": 2,
-            "relacionamento": 1}
-       ),
+            "america": 1,
+            "battlefield": 2,
+            "stark": 3
+        }),
 
         Person(name="Iron Man", role="smart", strength=2, preferences={
-            "estoque": 2,
-            "relacionamento": 1}
-               ),
+            "america": 3,
+            "battlefield": 2,
+            "stark": 1
+        }),
 
         Person(name="Thor", role="heavy", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 3,
+            "battlefield": 1,
+            "stark": 2
+        }),
 
         Person(name="Hawkeye", role="fast", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-               ),
+            "america": 1,
+            "battlefield": 2,
+            "stark": 3
+        }),
 
         Person(name="Ant Man", role="fast", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 3,
+            "battlefield": 2,
+            "stark": 1
+        }),
 
         Person(name="Black Panther", role="fast", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-        ),
+            "america": 2,
+            "battlefield": 1,
+            "stark": 3
+        }),
 
         Person(name="Black Widow", role="fast", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 1,
+            "battlefield": 2,
+            "stark": 3
+        }),
 
         Person(name="Spider Man", role="smart", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 3,
+            "battlefield": 2,
+            "stark": 1
+        }),
 
         Person(name="Star Lord", role="smart", strength=2, preferences={
-            "estoque": 1,
-            "relacionamento": 2}
-       ),
+            "america": 3,
+            "battlefield": 1,
+            "stark": 2
+        }),
     ]
     teams = [
         Team(name="america", size=3, roles={
