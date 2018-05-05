@@ -10,7 +10,7 @@ class RandomAllocation:
 
     def generate(self):
         indexes = range(0, len(self.people))
-        random.shuffle(indexes)
+        random.shuffle(list(indexes))
 
         allocations = self.create_empty_allocations()
 
