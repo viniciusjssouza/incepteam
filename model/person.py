@@ -12,3 +12,8 @@ class Person:
 
     def __eq__(self, other):
         return self.name == other.name
+
+    def __str__(self):
+        return "%s - Role: %s, Strength: %s, Preferences: %s" % (self.name, self.role, self.strength, self.preferences)
+
+    __repr__ = __str__

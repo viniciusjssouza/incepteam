@@ -11,3 +11,8 @@ class Team:
 
     def __eq__(self, other):
         return self.name == other.name
+
+    def __str__(self):
+        return "%s - Size: %d, Roles: %s" % (self.name, self.size, self.roles)
+
+    __repr__ = __str__

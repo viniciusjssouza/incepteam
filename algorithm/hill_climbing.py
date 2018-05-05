@@ -10,6 +10,5 @@ class HillClimbing:
 
 
     def search(self):
-
-
+        pass
 
