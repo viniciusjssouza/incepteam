@@ -1,6 +1,7 @@
 import csv
 
 from model import Person
+from model import Team
 
 class CsvLoader:
 
@@ -26,7 +27,7 @@ class PersonLoader:
 
         self.loaded_people = None
 
-    def _load_people(self):
+    def _load(self):
         key = 'Nome de usuário'
 
         ppl_data = self.ppl_loader.data()
@@ -44,4 +45,22 @@ class PersonLoader:
         return self.loaded_people
 
     def people(self):
-        return self.loaded_people or self._load_people()
+        return self.loaded_people or self._load()
+
+
+class Teamloader:
+
+    def __init__(self, filename):
+        self.loader = CsvLoader(filename)
+        self._teams = None
+
+    def _load(self):
+        teams = []
+        for data in self.loader.data():
+            teams.append(Team.build_team(**data))
+
+        self._teams = teams
+        return self._teams
+
+    def teams(self):
+        return self._teams or self._load()
