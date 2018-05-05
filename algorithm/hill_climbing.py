@@ -9,6 +9,7 @@ class HillClimbing:
         self.n_iterations = n_iterations
 
 
-    def search(self, iterations = 10):
-        pass
+    def search(self):
+
+
 
