@@ -16,4 +16,5 @@ class Person:
     def __str__(self):
         return "%s - Role: %s, Strength: %s, Preferences: %s" % (self.name, self.role, self.strength, self.preferences)
 
-    __repr__ = __str__
+    def __repr__(self):
+        return self.name
