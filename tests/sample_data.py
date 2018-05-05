@@ -1,7 +1,7 @@
 from model import *
 
 def four_people_two_teams():
-    persons = [
+    people = [
         Person(name="Joao", role="backend", strength=3, preferences={
             "estoque": 1,
             "relacionamento": 2}
@@ -32,11 +32,11 @@ def four_people_two_teams():
         })
 
     ]
-    return persons, teams
+    return ProblemInput(people=people, teams=teams)
 
 
 def avengers():
-    persons = [
+    people = [
         Person(name="Hulk", role="heavy", strength=3, preferences={
             "america": 2,
             "battlefield": 1,
@@ -111,4 +111,4 @@ def avengers():
         })
 
     ]
-    return persons, teams
+    return ProblemInput(people=people, teams=teams)

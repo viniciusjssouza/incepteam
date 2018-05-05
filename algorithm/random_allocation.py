@@ -14,10 +14,10 @@ class RandomAllocation:
 
         allocations = self.create_empty_allocations()
 
-        current_team = 0
-        for i in indexes:
-            allocations[current_team].members.append(self.people[i])
-            current_team = (current_team + 1) & len(self.teams)
+        for i, team in enumerate(self.teams):
+            while len(allocations[i].members) < team.size:
+                allocations[i].members.append(self.people[indexes.pop()])
+        return allocations
 
     def create_empty_allocations(self):
         allocations = []
@@ -25,3 +25,4 @@ class RandomAllocation:
             alloc = TeamAllocation(team.name, [])
             allocations.append(alloc)
         return allocations
+

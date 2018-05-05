@@ -15,4 +15,5 @@ class Team:
     def __str__(self):
         return "%s - Size: %d, Roles: %s" % (self.name, self.size, self.roles)
 
-    __repr__ = __str__
+    def __repr__(self):
+        return self.name
