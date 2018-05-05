@@ -7,6 +7,27 @@ class Person:
         self.strength = strength
         self.preferences = preferences
 
+    @staticmethod
+    def build_person(**data):
+        preferences = Person.build_preference(data)
+        return Person(
+            data['Nome de usuário'],
+            data['role'],
+            strength=data['strength'],
+            **preferences
+        )
+
+    @staticmethod
+    def build_preference(data):
+        preferences = {}
+
+        for k, v in data.items():
+            if 'qual time' in k:
+                team = k.split('[')[1].strip(']')
+                preferences[team] = v
+
+        return preferences
+
     def __hash__(self):
         return self.name
 

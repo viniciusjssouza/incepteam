@@ -6,6 +6,24 @@ class Team:
         self.size = size
         self.roles = roles
 
+    @staticmethod
+    def build_team(**data):
+        name = data['name']
+        size = data['size']
+        roles = Team.build_roles(data)
+
+        return Team(name, size, **roles)
+
+    @staticmethod
+    def build_roles(data):
+        roles = {}
+
+        for k, v in data.items():
+            if v and k not in ('name', 'size'):
+                roles[k] = int(v)
+
+        return roles
+
     def __hash__(self):
         return self.name
 
