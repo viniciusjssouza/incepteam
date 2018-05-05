@@ -18,7 +18,7 @@ class CsvLoader:
         return self.csv_data or self._load()
 
 
-class PersonLoder:
+class PersonLoader:
 
     def __init__(self, people_filename, management_filename):
         self.ppl_loader = CsvLoader(people_filename)
