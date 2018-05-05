@@ -1,9 +1,12 @@
-
 class TeamAllocation:
 
     def __init__(self, team_name, members):
         self.team_name = team_name
         self.members = members
+        self.cost = None
+
+    def cost(self):
+        return self.cost or self.calculate_cost()
 
     def __hash__(self):
         return self.team_name
