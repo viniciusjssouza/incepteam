@@ -11,10 +11,6 @@
 
 <script>
     function showResult() {
-        // let headerSizes = Array(50);
-        // for (var i = 0; i < headerSizes.length; i++)
-        //     headerSizes[i] = 300
-
         $('#result-table').jexcel({
             data: {{ csv_data | safe }},
             csvHeaders: false,
