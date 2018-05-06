@@ -52,7 +52,7 @@ class Genetic:
 
     def select_proportionate(self, population):
         # TODO change below code to O(log n)
-        fitnesses = list(map(self.fitness, population))
+        fitnesses = [self.fitness(p) for p in population]
         rand_range = sum(fitnesses)
         pick_a = random.uniform(0, rand_range)
         pick_b = random.uniform(0, rand_range)

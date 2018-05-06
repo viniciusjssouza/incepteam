@@ -1,4 +1,18 @@
 from model import *
+from input import *
+
+def sudo_data():
+    preferences_filename = 'input/example/incepteam.csv'
+    management_filename = 'input/example/incepteam_management.csv'
+    people_loader = PersonLoader(preferences_filename, management_filename)
+
+    teams_filename = 'input/example/teams.csv'
+    teams_loader = TeamLoader(teams_filename)
+
+    return ProblemInput(
+        people=people_loader.people(),
+        teams=teams_loader.teams()
+    )
 
 def four_people_two_teams():
     people = [

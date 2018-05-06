@@ -8,12 +8,12 @@ class Person:
         self.preferences = preferences or {}
 
     @staticmethod
-    def build_person(**data):
+    def build_person(data):
         preferences = Person.build_preference(data)
         return Person(
             data['Nome de usuário'],
             data['role'],
-            strength=data['strength'],
+            strength=int(data['strength']),
             preferences=preferences
         )
 
@@ -22,9 +22,9 @@ class Person:
         preferences = {}
 
         for k, v in data.items():
-            if 'qual time' in k:
+            if 'qual time' in k.lower():
                 team = k.split('[')[1].strip(']')
-                preferences[team] = v
+                preferences[team] = int(v)
 
         return preferences
 
