@@ -1,6 +1,7 @@
 import os
 import csv
 import json
+import logging
 
 from flask import Flask
 from flask import render_template
@@ -10,6 +11,8 @@ from flask import redirect
 from input import *
 from model import *
 from algorithm import HillClimbing
+
+logger = logging.getLogger()
 
 HEADERS = {
     'PREFERENCES': [
@@ -67,16 +70,20 @@ def add_dataset():
     dataset = request.form['name']
     dataset_dirname = './webapp/static/datasets/{}'.format(dataset)
 
-    os.makedirs(dataset_dirname)
-
     filenames = [
         ('PREFERENCES', '{}/{}.csv'.format(dataset_dirname, dataset)),
         ('MANAGEMENT', '{}/{}_management.csv'.format(dataset_dirname, dataset)),
         ('TEAMS', '{}/{}_teams.csv'.format(dataset_dirname, dataset))
     ]
 
-    for t, f in filenames:
-        touch(f, t)
+    try:
+        os.makedirs(dataset_dirname)
+
+        for t, f in filenames:
+            touch(f, t)
+
+    except FileExistsError:
+        logger.warn('Attempt to create already created dataset')
 
     return redirect('/')
 
