@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 from input import *
 import os
 
@@ -10,22 +11,20 @@ app = Flask(__name__)
 def render_home():
     return render_template('home.html', datasets=available_datasets())
 
-
 @app.route('/team-member/<dataset>')
-def team_member_dataset(dataset):
-    preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
-    management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
-    teams_filename = './webapp/static/datasets/{}_teams.csv'.format(dataset)
+def team_member_csv(dataset):
+    filename = './webapp/static/datasets/{0}/{0}.csv'.format(dataset)
+    return read_file(filename)
 
-    preferences_data = read_file(preferences_filename)
+@app.route('/management/<dataset>')
+def management_csv(dataset):
+    filename = './webapp/static/datasets/{0}/{0}_management.csv'.format(dataset)
+    return read_file(filename)
 
-    data = {
-        'preferences_data': read_file(preferences_filename),
-        'management_data': read_file(management_filename),
-        'teams_data': read_file(teams_filename)
-    }
-    return preferences_data
-
+@app.route('/teams/<dataset>')
+def teams_csv(dataset):
+    filename = './webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset)
+    return read_file(filename)
 
 def available_datasets():
     return os.listdir('./webapp/static/datasets')

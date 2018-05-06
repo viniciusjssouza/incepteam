@@ -15,15 +15,16 @@
     </fieldset>
 </form>
 
-<form method="get" action="/select/dataset">
+
+<div>
     <label>Selecione um dataset:</label>
-    <select name="name">
+    <select id="ds-select" name="name">
         <option>-- selecione um dataset --</option>
     {% for ds in datasets: %}
         <option>{{ ds }}</option>
     {% endfor %}
     </select>
-</form>
+</div>
 
 <h2>Team Member</h2>
 <div id="team-member-table"></div>
@@ -42,6 +43,30 @@
 <textarea id='txt' style='width:400px;height:120px'></textarea>
 
 <script>
+    function showDataset() {
+        alert('shoing');
+        var currentDS = $("#ds-select").val();
+        $('#team-member-table').jexcel({
+            csv: 'http://localhost:5000/team-member/' + currentDS,
+            csvHeaders: true,
+            colWidths: [300, 300, 300],
+        });
+
+        $('#management-table').jexcel({
+            csv: 'http://localhost:5000/management/' + currentDS,
+            csvHeaders: true,
+            colWidths: [300, 300, 300],
+        });
+
+        $('#teams-table').jexcel({
+            csv: 'http://localhost:5000/teams/' + currentDS,
+            csvHeaders: true,
+            colWidths: [300, 300, 300],
+        });
+    };
+
+    $("#ds-select").change(showDataset);
+
     $('#team-member-table').jexcel({
         csv: 'http://localhost:5000/team-member/zoo',
         csvHeaders: true,
