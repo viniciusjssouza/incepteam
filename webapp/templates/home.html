@@ -75,22 +75,25 @@
 
     function showDataset() {
         var currentDS = current_dataset();
+        var headerSizes = Array(20);
+        for (var i = 0; i < headerSizes.length; i++)
+            headerSizes[i] = 300
         $('#team-member-table').jexcel({
             csv: 'http://localhost:5000/team-member/' + currentDS,
             csvHeaders: true,
-            colWidths: [300, 300, 300],
+            colWidths: headerSizes,
         });
 
         $('#management-table').jexcel({
             csv: 'http://localhost:5000/management/' + currentDS,
             csvHeaders: true,
-            colWidths: [300, 300, 300],
+            colWidths: headerSizes,
         });
 
         $('#team-table').jexcel({
             csv: 'http://localhost:5000/teams/' + currentDS,
             csvHeaders: true,
-            colWidths: [300, 300, 300],
+            colWidths: headerSizes,
         });
         $("#result-panel").fadeIn();
     };

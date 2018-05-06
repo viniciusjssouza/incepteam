@@ -20,10 +20,9 @@ app = Flask(__name__)
 @app.route('/dataset/<dataset>/save', methods=['POST'])
 def save_dataset(dataset):
     data = request.json
-    print(data)
     write_to_file('./webapp/static/datasets/{0}/{0}.csv'.format(dataset), data['teamMembersData'])
-    # write_to_file('./webapp/static/datasets/{0}/{0}_management.csv'.format(dataset), data['managementData'])
-    # write_to_file('./webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset), data['teamData'])
+    write_to_file('./webapp/static/datasets/{0}/{0}_management.csv'.format(dataset), data['managementData'])
+    write_to_file('./webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset), data['teamData'])
     return 'ok'
 
 @app.route('/')
