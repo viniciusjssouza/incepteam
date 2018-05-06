@@ -14,7 +14,7 @@ class HillClimbing:
 
     def search(self):
         self.solution = None
-        for it in range(0, HillClimbing.DEFAULT_N_ITERATIONS):
+        for it in range(HillClimbing.DEFAULT_N_ITERATIONS):
             allocations = self.generate_initial_allocation()
             while True:
                 new_allocations = self.improve_allocation(allocations)

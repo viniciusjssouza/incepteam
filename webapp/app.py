@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 
 from flask import Flask
 from flask import render_template
@@ -7,6 +8,8 @@ from flask import request
 from flask import redirect
 
 from input import *
+from model import *
+from algorithm import HillClimbing
 
 HEADERS = {
     'PREFERENCES': [
@@ -76,6 +79,44 @@ def add_dataset():
         touch(f, t)
 
     return redirect('/')
+
+
+@app.route('/run', methods=['POST'])
+def run():
+    dataset = request.form['name']
+    data_input = problem_input(dataset)
+
+    result = format_result(json.loads(repr(x)) for x in HillClimbing(data_input).search().team_allocations)
+
+    return render_template('/result.html', csv_data=result)
+
+
+def format_result(data):
+    headers = ['team_name', 'members']
+
+    result = [headers]
+    for x in data:
+        result.append([x['team_name'], '\n'.join(x['members'])])
+
+    return result
+
+
+def problem_input(dataset):
+    dataset_dirname = './webapp/static/datasets/{}'.format(dataset)
+
+    data = {
+        'preferences': '{}/{}.csv'.format(dataset_dirname, dataset),
+        'management': '{}/{}_management.csv'.format(dataset_dirname, dataset),
+        'teams': '{}/{}_teams.csv'.format(dataset_dirname, dataset)
+    }
+
+    people_loader = PersonLoader(data['preferences'], data['management'])
+    teams_loader = TeamLoader(data['teams'])
+
+    return ProblemInput(
+        people=people_loader.people(),
+        teams=teams_loader.teams()
+    )
 
 
 def team_member_dataset(dataset):

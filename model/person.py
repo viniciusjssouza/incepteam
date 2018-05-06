@@ -1,3 +1,8 @@
+KNOWN_HEADERS = [
+    'Nome de usuário',
+    'role',
+    'strength'
+]
 
 class Person:
 
@@ -22,9 +27,8 @@ class Person:
         preferences = {}
 
         for k, v in data.items():
-            if 'qual time' in k.lower():
-                team = k.split('[')[1].strip(']')
-                preferences[team] = int(v)
+            if k not in KNOWN_HEADERS:
+                preferences[k] = int(v)
 
         return preferences
 

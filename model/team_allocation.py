@@ -1,3 +1,5 @@
+import json
+
 
 class TeamAllocation:
 
@@ -14,4 +16,8 @@ class TeamAllocation:
     def __str__(self):
         return "Team: %s   Members: %s" % (self.team_name, self.members)
 
-    __repr__ = __str__
+    def __repr__(self):
+        return json.dumps({
+            'team_name': self.team_name,
+            'members': [x.name for x in self.members]
+        })
