@@ -19,3 +19,8 @@ class Allocations:
     def __copy__(self, memodict={}):
         new_team_allocations = copy(self.team_allocations)
         return Allocations(self.problem_input, new_team_allocations)
+
+    def __str__(self):
+        return str(self.team_allocations) + ", custo: " + self.cost()
+
+    __repr__ = __str__
