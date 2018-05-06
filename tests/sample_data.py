@@ -43,7 +43,7 @@ def avengers():
             "stark": 3
         }),
 
-        Person(name="America", role="fast", strength=1, preferences={
+        Person(name="America", role="fast", strength=2, preferences={
             "america": 1,
             "battlefield": 2,
             "stark": 3
@@ -55,19 +55,19 @@ def avengers():
             "stark": 1
         }),
 
-        Person(name="Thor", role="heavy", strength=2, preferences={
+        Person(name="Thor", role="heavy", strength=3, preferences={
             "america": 3,
             "battlefield": 1,
             "stark": 2
         }),
 
-        Person(name="Hawkeye", role="fast", strength=2, preferences={
+        Person(name="Hawkeye", role="fast", strength=1, preferences={
             "america": 1,
             "battlefield": 2,
             "stark": 3
         }),
 
-        Person(name="Ant Man", role="fast", strength=2, preferences={
+        Person(name="Ant Man", role="fast", strength=1, preferences={
             "america": 3,
             "battlefield": 2,
             "stark": 1
@@ -79,13 +79,13 @@ def avengers():
             "stark": 3
         }),
 
-        Person(name="Black Widow", role="fast", strength=2, preferences={
+        Person(name="Black Widow", role="fast", strength=1, preferences={
             "america": 1,
             "battlefield": 2,
             "stark": 3
         }),
 
-        Person(name="Spider Man", role="smart", strength=2, preferences={
+        Person(name="Spider Man", role="smart", strength=1, preferences={
             "america": 3,
             "battlefield": 2,
             "stark": 1
