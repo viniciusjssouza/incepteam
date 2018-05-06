@@ -8,7 +8,7 @@ import pdb
 
 class Genetic:
 
-    DEFAULT_N_ITERATIONS = 1000
+    DEFAULT_N_ITERATIONS = 100
     DEDAULT_GENERATION_SIZE = 50
     DEDAULT_ELITE_SIZE = 8
     DEFAULT_MUTATION_ODDS = 0.04
@@ -78,12 +78,22 @@ class Genetic:
         # cross over a and b
         trade_person = random.sample(self.people, 1)[0]
         first_team_a = new_a.people_to_team_map[trade_person]
+        presence_a = [(trade_person, first_team_a)]
         current_team_b = new_b.people_to_team_map[trade_person]
-        trade_people = set(trade_person)
-        # pdb.set_trace()
+        presence_b = [(trade_person, current_team_b)]
+        trade_people = {trade_person}
         while current_team_b != first_team_a:
-          possible_trade_people = list(new_a.team_allocation(current_team_b).members - trade_people)
+          possible_trade_people = list(new_a.team_name_to_allocation[current_team_b].members - trade_people)
           trade_person = random.sample(possible_trade_people,1)[0]
+          presence_a.append((trade_person, current_team_b))
+          current_team_b = new_b.people_to_team_map[trade_person]
+          presence_b.append((trade_person, current_team_b))
+          trade_people.add(trade_person)
+        # should exchange trade people between teams
+        self.remove_members(new_a, presence_a)
+        self.add_members(new_a, presence_b)
+        self.remove_members(new_b, presence_b)
+        self.add_members(new_b, presence_a)
         new_a.calculate_cost()
         new_b.calculate_cost()
         return new_a, new_b
@@ -103,3 +113,11 @@ class Genetic:
         team2.members.remove(person2)
         team1.members.add(person2)
         team2.members.add(person1)
+
+    def remove_members(self, allocation, presence):
+        for member, team_name in presence:
+            allocation.team_name_to_allocation[team_name].members.remove(member)
+
+    def add_members(self, allocation, presence):
+        for member, team_name in presence:
+            allocation.team_name_to_allocation[team_name].members.add(member)
