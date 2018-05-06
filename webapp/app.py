@@ -1,8 +1,10 @@
+import os
+
 from flask import Flask
 from flask import render_template
 from flask import request
+
 from input import *
-import os
 
 app = Flask(__name__)
 
@@ -26,9 +28,30 @@ def teams_csv(dataset):
     filename = './webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset)
     return read_file(filename)
 
+def team_member_dataset(dataset):
+    preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
+    management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
+    teams_filename = './webapp/static/datasets/{}_teams.csv'.format(dataset)
+
+    preferences_data = read_file(preferences_filename)
+
+    data = {
+        'preferences_data': read_file(preferences_filename),
+        'management_data': read_file(management_filename),
+        'teams_data': read_file(teams_filename)
+    }
+    return preferences_data
+
+@app.route('/dataset/add', methods=['POST'])
+def add_dataset():
+    dataset = request.form['dataset']
+
+    files = [x.format(dataset) for x in ['{}.csv', '{}_management.csv', '{}_teams.csv']]
+
+    os.makedirs('./webapp/static/datasets/{}'.format(dataset))
+
 def available_datasets():
     return os.listdir('./webapp/static/datasets')
-
 
 def read_file(filename):
     with open(filename) as f:
