@@ -5,7 +5,7 @@ import itertools
 
 
 class HillClimbing:
-    DEFAULT_N_ITERATIONS = 1000
+    DEFAULT_N_ITERATIONS = 100
 
     def __init__(self, problem_input, n_iterations=DEFAULT_N_ITERATIONS):
         self.input = problem_input
