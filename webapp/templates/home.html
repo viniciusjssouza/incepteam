@@ -26,25 +26,39 @@
     </select>
 </div>
 
-<h2>Team Member</h2>
-<div id="team-member-table"></div>
+<div id="result-panel" style="display: none">
+    <h2>Team Member</h2>
+    <div id="team-member-table"></div>
 
-<h2>Management Data</h2>
-<div id="management-table"></div>
+    <h2>Management Data</h2>
+    <div id="management-table"></div>
 
-<h2>Team Data</h2>
-<div id="team-table"></div>
+    <h2>Team Data</h2>
+    <div id="team-table"></div>
 
-<p>
-    <button id='upload'>Convert to CSV</button>
-    <button id='json'>Convert to JSON</button>
-</p>
-
-<textarea id='txt' style='width:400px;height:120px'></textarea>
+    <p>
+        <button id="save-btn" type="button">Salvar Alterações</button>
+        <button id='run-btn' type="submit">Obter melhor distribuição</button>
+    </p>
+</div>
 
 <script>
+    function getData(table) {
+        return $('#' + table).jexcel('getData');
+    }
+
+    function saveDataset() {
+        var data = {
+            teamMembersData: getData('team-member-table'),
+            managementData: getData('management-table'),
+            teamData: getData('team-table')
+        };
+        $.post("/dataset/save", data, function() {
+          alert("Dataset salvo!")
+        });
+    }
+
     function showDataset() {
-        alert('shoing');
         var currentDS = $("#ds-select").val();
         $('#team-member-table').jexcel({
             csv: 'http://localhost:5000/team-member/' + currentDS,
@@ -58,29 +72,15 @@
             colWidths: [300, 300, 300],
         });
 
-        $('#teams-table').jexcel({
+        $('#team-table').jexcel({
             csv: 'http://localhost:5000/teams/' + currentDS,
             csvHeaders: true,
             colWidths: [300, 300, 300],
         });
+        $("#result-panel").fadeIn();
     };
 
     $("#ds-select").change(showDataset);
 
-    $('#team-member-table').jexcel({
-        csv: 'http://localhost:5000/team-member/zoo',
-        csvHeaders: true,
-        colWidths: [70, 200, 300],
-    });
-
-    $('#upload').on('click', function () {
-        var data = $('#my').jexcel('getData');
-        $('#txt').val($.csv.fromArrays(data));
-    });
-
-    $('#json').on('click', function () {
-        var data = $('#my').jexcel('getData');
-        $('#txt').val(JSON.stringify(data));
-    });
 </script>
 </html>
