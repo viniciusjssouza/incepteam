@@ -14,6 +14,19 @@ def sudo_data():
         teams=teams_loader.teams()
     )
 
+def zoo_data():
+    preferences_filename = 'input/example/zoo.csv'
+    management_filename = 'input/example/zoo_management.csv'
+    people_loader = PersonLoader(preferences_filename, management_filename)
+
+    teams_filename = 'input/example/zoo_teams.csv'
+    teams_loader = TeamLoader(teams_filename)
+
+    return ProblemInput(
+        people=people_loader.people(),
+        teams=teams_loader.teams()
+    )
+
 def four_people_two_teams():
     people = [
         Person(name="Joao", role="backend", strength=3, preferences={

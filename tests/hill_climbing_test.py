@@ -24,6 +24,12 @@ class TestHillClimbing(unittest.TestCase):
         print(solution.team_allocations)
         print(solution.cost())
 
+    def test_search_zoo(self):
+        input = tests.zoo_data()
+        solution = HillClimbing(input).search()
+        print(solution.team_allocations)
+        print(solution.cost())
+
 
 if __name__ == '__main__':
     unittest.main()
