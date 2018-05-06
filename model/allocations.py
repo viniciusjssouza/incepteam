@@ -21,6 +21,6 @@ class Allocations:
         return Allocations(self.problem_input, new_team_allocations)
 
     def __str__(self):
-        return str(self.team_allocations) + ", custo: " + self.cost()
+        return str(self.team_allocations) + ", cost: " + str(self.cost())
 
     __repr__ = __str__
