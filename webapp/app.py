@@ -8,6 +8,12 @@ from flask import redirect
 
 from input import *
 
+HEADERS = {
+    'PREFERENCES': '"Nome de usuário","[Team red]","[Team blue]","[Team green]","[Team yellow]"',
+    'MANAGEMENT': 'Nome de usuário,strength,role',
+    'TEAMS': 'name,size,role1,role2,role3'
+}
+
 app = Flask(__name__)
 
 
@@ -46,18 +52,40 @@ def teams_csv(dataset):
 @app.route('/dataset/add', methods=['POST'])
 def add_dataset():
     dataset = request.form['name']
+    dataset_dirname = './webapp/static/datasets/{}'.format(dataset)
 
-    os.makedirs('./webapp/static/datasets/{}'.format(dataset))
+    os.makedirs(dataset_dirname)
 
-    for f in [x.format(dataset) for x in ['{}.csv', '{}_management.csv', '{}_teams.csv']]:
-        touch(f)
+    filenames = [
+        ('PREFERENCES', '{}/{}.csv'.format(dataset_dirname, dataset)),
+        ('MANAGEMENT', '{}/{}_management.csv'.format(dataset_dirname, dataset)),
+        ('TEAMS', '{}/{}_teams.csv'.format(dataset_dirname, dataset))
+    ]
+
+    for t, f in filenames:
+        touch(f, t)
 
     return redirect('/')
 
 
-def touch(filename):
+def team_member_dataset(dataset):
+    preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
+    management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
+    teams_filename = './webapp/static/datasets/{}_teams.csv'.format(dataset)
+
+    preferences_data = read_file(preferences_filename)
+
+    data = {
+        'preferences_data': read_file(preferences_filename),
+        'management_data': read_file(management_filename),
+        'teams_data': read_file(teams_filename)
+    }
+    return preferences_data
+
+
+def touch(filename, type):
     with open(filename, 'w') as f:
-        pass
+        f.writelines([HEADERS[type]])
 
 
 def write_to_file(filename, content):
