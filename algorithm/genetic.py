@@ -8,10 +8,10 @@ import pdb
 
 class Genetic:
 
-    DEFAULT_N_ITERATIONS = 100
+    DEFAULT_N_ITERATIONS = 300
     DEDAULT_GENERATION_SIZE = 50
     DEDAULT_ELITE_SIZE = 8
-    DEFAULT_MUTATION_ODDS = 0.04
+    DEFAULT_MUTATION_ODDS = 0.1
 
     def __init__(self, problem_input, extra_settings=None):
         extra_settings = extra_settings or {}
@@ -70,7 +70,7 @@ class Genetic:
         return population[index_a], population[index_b]
 
     def fitness(self, allocation):
-        return 1.0/allocation.cost()
+        return 0.01 + 1.0/allocation.cost()
 
     def generate_children(self, parent_a, parent_b):
         new_a = copy(parent_a)
@@ -99,13 +99,14 @@ class Genetic:
         return new_a, new_b
 
     def mutate(self, allocation):
-        # calculate random people to swap
         new_allocation = copy(allocation)
-        team1, team2 = random.sample(new_allocation.team_allocations, 2)
-        person1 = random.sample(team1.members, 1)[0]
-        person2 = random.sample(team2.members, 1)[0]
-        self.swap_people(new_allocation, team1, person1, team2, person2)
-        new_allocation.calculate_cost()
+        for _ in range(random.randint(1,12)):
+            # calculate random people to swap
+            team1, team2 = random.sample(new_allocation.team_allocations, 2)
+            person1 = random.sample(team1.members, 1)[0]
+            person2 = random.sample(team2.members, 1)[0]
+            self.swap_people(new_allocation, team1, person1, team2, person2)
+            new_allocation.calculate_cost()
         return new_allocation
 
     def swap_people(self, team_allocations, team1, person1, team2, person2):
