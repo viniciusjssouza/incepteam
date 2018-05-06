@@ -1,5 +1,5 @@
 from model import AllocationCost
-from copy import copy
+from copy import deepcopy
 
 
 class Allocations:
@@ -17,7 +17,7 @@ class Allocations:
         return self._cost
 
     def __copy__(self, memodict={}):
-        new_team_allocations = copy(self.team_allocations)
+        new_team_allocations = deepcopy(self.team_allocations)
         return Allocations(self.problem_input, new_team_allocations)
 
     def __str__(self):
