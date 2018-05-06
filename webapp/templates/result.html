@@ -1,0 +1,26 @@
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.5.0/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.5.0/css/jquery.jexcel.min.css"
+      type="text/css"/>
+
+<h2>Resultado</h2>
+<div id="result-table"></div>
+
+<script>
+
+    function showResult() {
+        $('#team-member-table').jexcel({
+            data: {{csv_data}},
+            csvHeaders: true,
+            colWidths: headerSizes,
+        });
+    };
+
+    $("#ds-select").change(showDataset);
+    $("#save-btn").click(saveDataset);
+
+</script>
+</html>
