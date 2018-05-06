@@ -1,4 +1,5 @@
 import os
+import csv
 
 from flask import Flask
 from flask import render_template
@@ -9,6 +10,15 @@ from input import *
 
 app = Flask(__name__)
 
+
+@app.route('/dataset/<dataset>/save', methods=['POST'])
+def save_dataset(dataset):
+    data = request.json
+    print(data)
+    write_to_file('./webapp/static/datasets/{0}/{0}.csv'.format(dataset), data['teamMembersData'])
+    # write_to_file('./webapp/static/datasets/{0}/{0}_management.csv'.format(dataset), data['managementData'])
+    # write_to_file('./webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset), data['teamData'])
+    return 'ok'
 
 @app.route('/')
 def render_home():
@@ -45,24 +55,15 @@ def add_dataset():
     return redirect('/')
 
 
-def team_member_dataset(dataset):
-    preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
-    management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
-    teams_filename = './webapp/static/datasets/{}_teams.csv'.format(dataset)
-
-    preferences_data = read_file(preferences_filename)
-
-    data = {
-        'preferences_data': read_file(preferences_filename),
-        'management_data': read_file(management_filename),
-        'teams_data': read_file(teams_filename)
-    }
-    return preferences_data
-
-
 def touch(filename):
     with open(filename, 'w') as f:
         pass
+
+
+def write_to_file(filename, content):
+    with open(filename, "w") as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerows(content)
 
 
 def available_datasets():

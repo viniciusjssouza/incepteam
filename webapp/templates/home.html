@@ -47,19 +47,34 @@
         return $('#' + table).jexcel('getData');
     }
 
+    function getHeaders(table) {
+        return $('#' + table).jexcel('getHeaders');
+    }
+
     function saveDataset() {
         var data = {
-            teamMembersData: getData('team-member-table'),
-            managementData: getData('management-table'),
-            teamData: getData('team-table')
+            teamMembersData: [getHeaders('team-member-table')].concat(getData('team-member-table')),
+            managementData: [getHeaders('management-table')].concat(getData('management-table')),
+            teamData: [getHeaders('team-table')].concat(getData('team-table'))
         };
-        $.post("/dataset/save", data, function() {
-          alert("Dataset salvo!")
+        $.ajax({
+            url: "/dataset/" + current_dataset() + "/save",
+            method: 'post',
+            data: JSON.stringify(data),
+            contentType: 'application/json;charset=UTF-8',
+            success: function () {
+                alert("Dataset salvo!")
+            }
         });
     }
 
-    function showDataset() {
+    function current_dataset() {
         var currentDS = $("#ds-select").val();
+        return currentDS;
+    }
+
+    function showDataset() {
+        var currentDS = current_dataset();
         $('#team-member-table').jexcel({
             csv: 'http://localhost:5000/team-member/' + currentDS,
             csvHeaders: true,
@@ -81,6 +96,7 @@
     };
 
     $("#ds-select").change(showDataset);
+    $("#save-btn").click(saveDataset);
 
 </script>
 </html>
