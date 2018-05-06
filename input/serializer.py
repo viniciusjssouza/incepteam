@@ -1,19 +1,15 @@
-import csv
-
-from model import Person
-from model import Team
+from io import StringIO
 
 class CsvSerializer:
 
-    def __init__(self, filename):
-        self.filename = filename
-        self.csv_data = None
+    def __init__(self, allocations):
+        self.allocations = allocations
 
-    def _load(self):
-        with open(self.filename) as f:
-            self.csv_data = [line for line in csv.DictReader(f)]
-
-        return self.csv_data
-
-    def data(self):
-        return self.csv_data or self._load()
+    def serialize(self):
+        result = StringIO()
+        for team_alloc in self.allocations.team_allocations:
+            result.write(team_alloc.team_name)
+            for member in team_alloc.members:
+                result.write(", %s" % (member.name))
+            result.write("\n")
+        return result.getvalue()

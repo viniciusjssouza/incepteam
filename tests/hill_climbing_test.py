@@ -1,6 +1,7 @@
 import unittest
 import tests
 from model import Allocations
+from input.serializer import CsvSerializer
 from algorithm import HillClimbing
 
 
@@ -11,6 +12,7 @@ class TestHillClimbing(unittest.TestCase):
         solution = HillClimbing(input).search()
         print(solution.team_allocations)
         print(solution.cost())
+        print(CsvSerializer(solution).serialize())
 
     def test_search_two_teams(self):
         input = tests.four_people_two_teams()
