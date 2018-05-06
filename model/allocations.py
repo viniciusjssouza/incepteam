@@ -8,6 +8,8 @@ class Allocations:
         self.team_allocations = team_allocations
         self.problem_input = problem_input
         self._cost = None
+        self.people_to_team_map = {}
+        self.map_people_to_team()
 
     def cost(self):
         return self._cost or self.calculate_cost()
@@ -24,3 +26,8 @@ class Allocations:
         return str(self.team_allocations) + ", cost: " + str(self.cost())
 
     __repr__ = __str__
+
+    def map_people_to_team(self):
+        for alloc in self.team_allocations:
+            for person in alloc.members:
+                self.people_to_team_map[person] = alloc.team_name
