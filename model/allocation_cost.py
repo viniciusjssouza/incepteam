@@ -11,6 +11,7 @@ class AllocationCost:
     def calculate(self):
         costs = {'preference': self.preferences_cost(), 'roles': self.roles_cost(), 'strength': self.strength_cost()}
         print(costs)
+        print(sum(costs.values()))
         return sum(costs.values())
 
     def preferences_cost(self):

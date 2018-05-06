@@ -16,7 +16,7 @@ class RandomAllocation:
 
         for i, team in enumerate(self.teams):
             while len(allocations[i].members) < team.size:
-                allocations[i].members.append(self.people[indexes.pop()])
+                allocations[i].members.add(self.people[indexes.pop()])
         return allocations
 
     def create_empty_allocations(self):

@@ -29,7 +29,7 @@ class Person:
         return preferences
 
     def __hash__(self):
-        return self.name
+        return hash(self.name)
 
     def __eq__(self, other):
         return self.name == other.name

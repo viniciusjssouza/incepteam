@@ -1,4 +1,5 @@
 from model import AllocationCost
+from copy import copy
 
 
 class Allocations:
@@ -14,3 +15,7 @@ class Allocations:
     def calculate_cost(self):
         self._cost = AllocationCost(self.problem_input, self.team_allocations).value
         return self._cost
+
+    def __copy__(self, memodict={}):
+        new_team_allocations = copy(self.team_allocations)
+        return Allocations(self.problem_input, new_team_allocations)
