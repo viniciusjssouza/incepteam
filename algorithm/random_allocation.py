@@ -9,14 +9,14 @@ class RandomAllocation:
         self.teams = teams
 
     def generate(self):
-        indexes = range(0, len(self.people))
+        indexes = list(range(0, len(self.people)))
         random.shuffle(indexes)
 
         allocations = self.create_empty_allocations()
 
         for i, team in enumerate(self.teams):
             while len(allocations[i].members) < team.size:
-                allocations[i].members.append(self.people[indexes.pop()])
+                allocations[i].members.add(self.people[indexes.pop()])
         return allocations
 
     def create_empty_allocations(self):

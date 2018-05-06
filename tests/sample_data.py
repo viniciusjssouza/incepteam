@@ -99,7 +99,8 @@ def avengers():
     ]
     teams = [
         Team(name="america", size=3, roles={
-            "fast": 2
+            "fast": 2,
+            'heavy': 1,
         }),
 
         Team(name="battlefield", size=4, roles={
