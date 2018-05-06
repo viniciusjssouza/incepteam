@@ -1,0 +1,61 @@
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.5.0/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.5.0/css/jquery.jexcel.min.css"
+      type="text/css"/>
+
+<form action="/dataset/add" method="post">
+    <fieldset>
+        <legend>Criar novo dataset</legend>
+        <label>Nome:</label>
+        <input name="name"/>
+        <button type="submit">Adicionar</button>
+    </fieldset>
+</form>
+
+<form method="get" action="/select/dataset">
+    <label>Selecione um dataset:</label>
+    <select name="name">
+        <option>-- selecione um dataset --</option>
+    {% for ds in datasets: %}
+        <option>{{ ds }}</option>
+    {% endfor %}
+    </select>
+</form>
+
+<h2>Team Member</h2>
+<div id="team-member-table"></div>
+
+<h2>Management Data</h2>
+<div id="management-table"></div>
+
+<h2>Team Data</h2>
+<div id="team-table"></div>
+
+<p>
+    <button id='upload'>Convert to CSV</button>
+    <button id='json'>Convert to JSON</button>
+</p>
+
+<textarea id='txt' style='width:400px;height:120px'></textarea>
+
+<script>
+    $('#team-member-table').jexcel({
+        csv: 'http://localhost:5000/team-member/zoo',
+        csvHeaders: true,
+        colWidths: [70, 200, 300],
+    });
+
+    $('#upload').on('click', function () {
+        var data = $('#my').jexcel('getData');
+        $('#txt').val($.csv.fromArrays(data));
+    });
+
+    $('#json').on('click', function () {
+        var data = $('#my').jexcel('getData');
+        $('#txt').val(JSON.stringify(data));
+    });
+</script>
+</html>
