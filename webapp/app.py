@@ -3,11 +3,11 @@ import os
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
 
 from input import *
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def render_home():
@@ -28,6 +28,18 @@ def teams_csv(dataset):
     filename = './webapp/static/datasets/{0}/{0}_teams.csv'.format(dataset)
     return read_file(filename)
 
+@app.route('/dataset/add', methods=['POST'])
+def add_dataset():
+    dataset = request.form['name']
+
+    os.makedirs('./webapp/static/datasets/{}'.format(dataset))
+
+    for f in [x.format(dataset) for x in ['{}.csv', '{}_management.csv', '{}_teams.csv']]:
+        touch(f)
+
+    return redirect('/')
+
+
 def team_member_dataset(dataset):
     preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
     management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
@@ -42,13 +54,9 @@ def team_member_dataset(dataset):
     }
     return preferences_data
 
-@app.route('/dataset/add', methods=['POST'])
-def add_dataset():
-    dataset = request.form['dataset']
-
-    files = [x.format(dataset) for x in ['{}.csv', '{}_management.csv', '{}_teams.csv']]
-
-    os.makedirs('./webapp/static/datasets/{}'.format(dataset))
+def touch(filename):
+    with open(filename, 'w') as f:
+        pass
 
 def available_datasets():
     return os.listdir('./webapp/static/datasets')
