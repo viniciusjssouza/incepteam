@@ -78,6 +78,9 @@
     function showDataset() {
         var currentDS = current_dataset();
         $("#dataset-name").val(currentDS);
+
+        if (currentDS === '-- selecione um dataset --') return;
+
         var headerSizes = Array(20);
         for (var i = 0; i < headerSizes.length; i++)
             headerSizes[i] = 300
