@@ -39,7 +39,7 @@ class PersonLoader:
         self.loaded_people = []
         for item in ppl_data:
             boss = next(x for x in boss_data if x[key] == item[key])
-            person = Person.build_person(**{**item, **boss})
+            person = Person.build_person({**item, **boss})
             self.loaded_people.append(person)
 
         return self.loaded_people
@@ -48,7 +48,7 @@ class PersonLoader:
         return self.loaded_people or self._load()
 
 
-class Teamloader:
+class TeamLoader:
 
     def __init__(self, filename):
         self.loader = CsvLoader(filename)

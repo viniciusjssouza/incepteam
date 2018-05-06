@@ -18,6 +18,12 @@ class TestHillClimbing(unittest.TestCase):
         print(solution.team_allocations)
         print(solution.cost())
 
+    def test_search_sudo_data(self):
+        input = tests.sudo_data()
+        solution = HillClimbing(input).search()
+        print(solution.team_allocations)
+        print(solution.cost())
+
 
 if __name__ == '__main__':
     unittest.main()

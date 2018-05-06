@@ -9,7 +9,7 @@ class Team:
     @staticmethod
     def build_team(**data):
         name = data['name']
-        size = data['size']
+        size = int(data['size'])
         roles = Team.build_roles(data)
 
         return Team(name, size, roles)
