@@ -9,9 +9,20 @@ from flask import redirect
 from input import *
 
 HEADERS = {
-    'PREFERENCES': '"Nome de usuário","[Team red]","[Team blue]","[Team green]","[Team yellow]"',
-    'MANAGEMENT': 'Nome de usuário,strength,role',
-    'TEAMS': 'name,size,role1,role2,role3'
+    'PREFERENCES': [
+        ','.join(['Nome de usuário', '[Team 1]', '[Team 2]', '[Team 3]', '[Team 4]']) + '\n',
+        ''.join([','] * 4 + ['\n'])
+    ],
+
+    'MANAGEMENT': [
+        ','.join(['Nome de usuário', 'strength', 'role']) + '\n',
+        ''.join([','] * 2 + ['\n'])
+    ],
+
+    'TEAMS': [
+        ','.join(['name', 'size', 'role1', 'role2', 'role3']) + '\n',
+        ''.join([','] * 4 + ['\n'])
+    ]
 }
 
 app = Flask(__name__)
@@ -84,7 +95,7 @@ def team_member_dataset(dataset):
 
 def touch(filename, type):
     with open(filename, 'w') as f:
-        f.writelines([HEADERS[type]])
+        f.writelines(HEADERS[type])
 
 
 def write_to_file(filename, content):
