@@ -15,6 +15,7 @@ HEADERS = {
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def render_home():
     return render_template('home.html', datasets=available_datasets())
@@ -56,6 +57,7 @@ def add_dataset():
 
     return redirect('/')
 
+
 def team_member_dataset(dataset):
     preferences_filename = './webapp/static/datasets/{}.csv'.format(dataset)
     management_filename = './webapp/static/datasets/{}_management.csv'.format(dataset)
@@ -74,6 +76,7 @@ def team_member_dataset(dataset):
 def touch(filename, type):
     with open(filename, 'w') as f:
         f.writelines([HEADERS[type]])
+
 
 def available_datasets():
     return os.listdir('./webapp/static/datasets')
