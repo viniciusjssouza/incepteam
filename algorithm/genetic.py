@@ -38,13 +38,7 @@ class Genetic:
                     child_a = self.mutate(child_a)
                 new_population += [child_a, child_b]
             population = new_population
-        al = max(population, key=self.fitness)
-        print("asdasd")
-        print(al.team_allocations)
-        print(al.cost())
-        al.calculate_cost()
-        print(al.cost())
-        return al
+        return max(population, key=self.fitness)
 
     def generate_initial_population(self):
         population = []
@@ -82,6 +76,14 @@ class Genetic:
         new_a = copy(parent_a)
         new_b = copy(parent_b)
         # cross over a and b
+        trade_person = random.sample(self.people, 1)[0]
+        first_team_a = new_a.people_to_team_map[trade_person]
+        current_team_b = new_b.people_to_team_map[trade_person]
+        trade_people = set(trade_person)
+        # pdb.set_trace()
+        while current_team_b != first_team_a:
+          possible_trade_people = list(new_a.team_allocation(current_team_b).members - trade_people)
+          trade_person = random.sample(possible_trade_people,1)[0]
         new_a.calculate_cost()
         new_b.calculate_cost()
         return new_a, new_b
@@ -92,7 +94,6 @@ class Genetic:
         team1, team2 = random.sample(new_allocation.team_allocations, 2)
         person1 = random.sample(team1.members, 1)[0]
         person2 = random.sample(team2.members, 1)[0]
-        # pdb.set_trace()
         self.swap_people(new_allocation, team1, person1, team2, person2)
         new_allocation.calculate_cost()
         return new_allocation
